@@ -46,12 +46,9 @@ API:t har även körts i Minikube med en Kubernetes Deployment och Service.
 Deploymenten kör API:t med 3 Pod-replicas. 
 
 Self-healing och att byta mellan 3-5 replicas är testat
-
-
-
-
-
-
+<br>
+<br>
+<br>
 
 Milstolpe 1 SQL-frågor:
 frågorna finns i [Frågor](docs/sql-fragor.sql)
