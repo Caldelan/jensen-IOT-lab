@@ -45,30 +45,57 @@ def measurements():
 
 @app.get("/devices/<device_id>/latest")
 def latest(device_id):
-    # TODO M1:
+    if not device_exists(device_id):
+        return jsonify({
+            "error": f"unknown device: {device_id}"
+        }), 404
+
+    measurement = get_latest_measurement(device_id)
+
+    if measurement is None:
+        return jsonify({
+            "error": f"no measurements found for device: {device_id}"
+        }), 404
+
+    return jsonify(measurement), 200
+
+
+
+    # TODO M1: -klar
     # Läs senaste mätningen från PostgreSQL med get_latest_measurement(...).
     # Returnera 404 om sensorn eller en mätning saknas.
-    #
+    
     # TODO M2:
     # Utöka M1-lösningen med cache-aside:
     # 1. Försök läsa från Redis.
     # 2. Vid cache miss: läs från PostgreSQL.
     # 3. Spara databasresultatet i Redis.
-    return jsonify({
-        "message": "TODO: implementera latest measurement",
-        "deviceId": device_id
-    }), 501
+
+    #return jsonify({
+    #    "message": "TODO: implementera latest measurement",
+    #    "deviceId": device_id
+    #}), 501
 
 
 @app.get("/devices/<device_id>/measurements")
 def device_history(device_id):
-    # TODO M1:
+    if not device_exists(device_id):
+        return jsonify({
+            "error": f"skiten hittades inte: {device_id}"
+        }), 404
+
+    measurements = get_measurements_for_device(device_id)
+
+    return jsonify(measurements), 200
+
+    # TODO M1: -klar
     # Hämta sensorhistorik från PostgreSQL.
     # Känd sensor utan mätningar: 200 och []. Okänd sensor: 404.
-    return jsonify({
-        "message": "TODO: implementera device history",
-        "deviceId": device_id
-    }), 501
+    
+    #return jsonify({
+    #    "message": "TODO: implementera device history",
+    #    "deviceId": device_id
+    #}), 501
 
 
 @app.post("/measurements")
@@ -80,13 +107,28 @@ def create_measurement():
         print(f"INVALID measurement from {data.get('deviceId', 'unknown')}: {errors}")
         return jsonify({"errors": errors}), 400
 
-    # TODO M1:
+    if not device_exists(data["deviceId"]):
+        return jsonify({
+            "error": f"unknown device: {data['deviceId']}"
+        
+        }), 400
+
+    insert_measurement(data)
+
+    print(f"measurement recieved: {data}")
+
+    return jsonify({
+        "status": "created",
+        "measurement": data
+    }), 201
+
+    # TODO M1: -klar
     # Kontrollera med device_exists(...) att deviceId tillhör en känd sensor.
     # Okänd sensor ska ge 400 med ett tydligt JSON-fel.
     #
     # Spara till PostgreSQL via insert_measurement(data).
-    #
-    # TODO M2:
+    
+    # TODO M2: 
     # Uppdatera latest-cache för sensorn.
     #
     # Under starter-fasen returneras 202 så att simulatorn kan köras
