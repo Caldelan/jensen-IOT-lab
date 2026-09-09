@@ -23,3 +23,12 @@ Den senaste mätningen kan passa till redis om den hämtas ofta och om vi bara b
 Skulle redis försvinna finns fortfarande alla sensorvärden kvar i postgreSQL databasen och skulle senaste mätningen efterfrågas sparas värdet ner från databasen till redis efter anropet.
 
 Om PostgreSQL går ner kan API inte längre hämta datan, även om det senaste värdet finns sparat i redis kan resten inte återskapas.
+
+
+Milstople 3, reflektion:
+
+När en pod raderades såg kubernetes att antalet pods var lägre än vad configurationen i deployment.yaml filen angav och skapade då en ny pod. Kubernetes self healing.
+
+Flera replicas gör att ett API inte är beroende av en enda pod. Om en slutar fungera kan andra replicas ta över medans kubernetes skapar en ny.
+
+Kubernetes kan öka antalet replicas vid behov och minska om belastningen gör det. Men verkar vara mycket svårare att hantera än t.ex. docker om det bara handlar om ett litet projekt med låg trafik.
