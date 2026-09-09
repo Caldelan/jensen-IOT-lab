@@ -38,12 +38,3 @@ Scaling: <br>
 
 
 
-
-
-diagram: <br>
-<img width="512" height="539" alt="image" src="https://github.com/user-attachments/assets/e091daf0-0a7d-43f7-9a43-a021250dfe1d" /> <br>
-
-kubernetes diagram: <br>
-<img width="203" height="291" alt="image" src="https://github.com/user-attachments/assets/d46e9be9-1de7-4cfe-b9e4-d7b4243899e4" /> <br>
-
-
