@@ -6,7 +6,7 @@ Medeltemperatur:
 SELECT AVG(temperature)
 FROM measurements;
 
-Alla mätningar från de senaste 34 timmarna:
+Alla mätningar från de senaste 24 timmarna:
 SELECT * 
 FROM temperature
 WHERE tidskolumn >= NOW() - INTERVAL '24 hours';
