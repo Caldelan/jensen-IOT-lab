@@ -9,4 +9,4 @@ FROM measurements;
 Alla mätningar från de senaste 24 timmarna:
 SELECT * 
 FROM temperature
-WHERE tidskolumn >= NOW() - INTERVAL '24 hours';
+WHERE created_at >= NOW() - INTERVAL '24 hours';
