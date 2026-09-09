@@ -1,3 +1,54 @@
+Milstople 4:
+
+## Om projektet:
+
+Projektet är ett IoT projekt med sensorer som skickar temperatur, luftfuktighet, batterimätningar till ett REST API byggt med FLASK som i sin tur validerar och lagrar mätningsdatan i PostgreSQL och med Redis som en cache för den senaste mätningen.
+    Kan även hämta historik av värden för specifika sensorer
+
+PostgreSQL används för permanent lagring av mätningar och
+historik. Redis används som cache för den senaste mätningen. Skulle mätningen i cache inte finnas hämtas den från PostgreSQL databasen.
+
+Arkitekturdiagram finns i:
+[docs/architecture.md](docs/architecture.md)
+
+för att köra projektet krävs:
+- Docker
+- Docker compose
+- Git
+
+Har även använt:
+- Minikube
+- kubectl
+
+Projectet startas med:
+
+```bash
+docker compose up --build -d
+```
+
+Tester körs med:
+```bash
+docker compose exec api python -m pytest -q
+```
+
+CI:
+Projectet använder Github Actions för kontinuerlig integration.
+
+vid push / pull requests 
+-installeras API dependencies
+-körs pytest
+-byggs API Docker image
+
+kubernetes:
+
+API:t har även körts i Minikube med en Kubernetes Deployment och Service.
+
+Deploymenten kör API:t med 3 Pod-replicas. 
+
+Self-healing och att byta mellan 3-5 replicas är testat
+
+
+
 Milstolpe 1 SQL-frågor:
 frågorna finns i [Frågor](docs/sql-fragor.sql)
 
@@ -35,6 +86,7 @@ Kubernetes kan öka antalet replicas vid behov och minska om belastningen gör d
 
 Scaling: <br>
 <img width="753" height="137" alt="kubectl_scaling" src="https://github.com/user-attachments/assets/ea0a325b-2474-4da7-b5b7-7b04e5eaa622" /> <br>
+
 
 
 
