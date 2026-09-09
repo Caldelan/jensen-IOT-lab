@@ -4,13 +4,13 @@ frågorna finns i [Frågor](docs/sql-fragor.sql)
 
 resultat från frågorna:
 antal mätningar: <br>
-<img width="348" height="78" alt="image" src="https://github.com/user-attachments/assets/4d939174-4428-4058-b000-f73e19ec31d8" />
+<img width="348" height="78" alt="image" src="https://github.com/user-attachments/assets/4d939174-4428-4058-b000-f73e19ec31d8" /> <br>
 
 Medeltemperatur: <br>
-<img width="401" height="89" alt="image" src="https://github.com/user-attachments/assets/953e4028-7ba3-45bb-900a-d5046ba1c258" />
+<img width="401" height="89" alt="image" src="https://github.com/user-attachments/assets/953e4028-7ba3-45bb-900a-d5046ba1c258" /> <br>
 
 mätningar inom en viss tidsram: <br>
-<img width="623" height="731" alt="image" src="https://github.com/user-attachments/assets/bd78a8e5-9a98-4b06-9fc5-33a06fd33600" />
+<img width="623" height="731" alt="image" src="https://github.com/user-attachments/assets/bd78a8e5-9a98-4b06-9fc5-33a06fd33600" /> <br>
 
 
 
@@ -32,3 +32,18 @@ När en pod raderades såg kubernetes att antalet pods var lägre än vad config
 Flera replicas gör att ett API inte är beroende av en enda pod. Om en slutar fungera kan andra replicas ta över medans kubernetes skapar en ny.
 
 Kubernetes kan öka antalet replicas vid behov och minska om belastningen gör det. Men verkar vara mycket svårare att hantera än t.ex. docker om det bara handlar om ett litet projekt med låg trafik.
+
+Scaling: <br>
+<img width="753" height="137" alt="kubectl_scaling" src="https://github.com/user-attachments/assets/ea0a325b-2474-4da7-b5b7-7b04e5eaa622" /> <br>
+
+
+
+
+
+diagram: <br>
+<img width="512" height="539" alt="image" src="https://github.com/user-attachments/assets/e091daf0-0a7d-43f7-9a43-a021250dfe1d" /> <br>
+
+kubernetes diagram: <br>
+<img width="203" height="291" alt="image" src="https://github.com/user-attachments/assets/d46e9be9-1de7-4cfe-b9e4-d7b4243899e4" /> <br>
+
+
