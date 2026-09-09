@@ -49,6 +49,10 @@ Self-healing och att byta mellan 3-5 replicas är testat
 
 
 
+
+
+
+
 Milstolpe 1 SQL-frågor:
 frågorna finns i [Frågor](docs/sql-fragor.sql)
 
