@@ -63,7 +63,7 @@ def main():
             except requests.RequestException as exc:
                 print(f"ERROR {sensor['deviceId']} request failed: {exc}")
 
-        time.sleep(5)
+        time.sleep(5) # ändrat pga tester (ska vara 5)
 
 
 if __name__ == "__main__":

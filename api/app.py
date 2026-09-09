@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, render_template
 import os
 import socket
+import cache # glömde >.>
 
 from db import (
     device_exists,
@@ -50,22 +51,36 @@ def latest(device_id):
             "error": f"unknown device: {device_id}"
         }), 404
 
-    measurement = get_latest_measurement(device_id)
+    measurement = get_latest_from_cache(device_id)
 
     if measurement is None:
-        return jsonify({
-            "error": f"no measurements found for device: {device_id}"
-        }), 404
+        measurement = get_latest_measurement(device_id)
+        if measurement is None:
+            return jsonify({
+                "error": f"no measurements found for device: {device_id}"
+            }), 404
+        
+        set_latest_in_cache(device_id, measurement)
 
     return jsonify(measurement), 200
 
+    
+    #measurement = get_latest_measurement(device_id)
 
+    #if measurement is None:
+    #    return jsonify({
+    #        "error": f"no measurements found for device: {device_id}"
+    #    }), 404
+
+    #set_latest_in_cache(device_id, measurement)
+
+    #return jsonify(measurement), 200
 
     # TODO M1: -klar
     # Läs senaste mätningen från PostgreSQL med get_latest_measurement(...).
     # Returnera 404 om sensorn eller en mätning saknas.
     
-    # TODO M2:
+    # TODO M2:-klar
     # Utöka M1-lösningen med cache-aside:
     # 1. Försök läsa från Redis.
     # 2. Vid cache miss: läs från PostgreSQL.
@@ -115,6 +130,8 @@ def create_measurement():
 
     insert_measurement(data)
 
+    set_latest_in_cache(data["deviceId"], data)
+
     print(f"measurement recieved: {data}")
 
     return jsonify({
@@ -133,6 +150,7 @@ def create_measurement():
     #
     # Under starter-fasen returneras 202 så att simulatorn kan köras
     # även innan studenten implementerat persistensen.
+
     print(f"VALID measurement received: {data}")
     return jsonify({"status": "accepted", "measurement": data}), 202
 
