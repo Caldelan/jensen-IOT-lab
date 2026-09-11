@@ -8,8 +8,13 @@ Projektet är ett IoT projekt med sensorer som skickar temperatur, luftfuktighet
 PostgreSQL används för permanent lagring av mätningar och
 historik. Redis används som cache för den senaste mätningen. Skulle mätningen i cache inte finnas hämtas den från PostgreSQL databasen.
 
+- [docs/lab-guide.md](docs/lab-guide.md) – instruktioner för alla fyra milstolpar
+- [docs/reflection.md](docs/reflection.md) – reflektionsfrågor
+
 Arkitekturdiagram finns i:
 [docs/architecture.md](docs/architecture.md)
+
+
 
 för att köra projektet krävs:
 - Docker
@@ -25,19 +30,32 @@ Projectet startas med:
 ```bash
 docker compose up --build -d
 ```
+för att stänga ner projektet:
+```bash
+docker compose down
+```
+Adresserna som används för API:
+
+- <http://localhost:5001> – startsida
+- <http://localhost:5001/health> – svisar status
+- <http://localhost:5001/devices> – visar sensorer
+- <http://localhost:5001/measurements> – visar de senaste sparade mätningarna
 
 Tester körs med:
 ```bash
 docker compose exec api python -m pytest -q
 ```
 
+
 CI:
 Projectet använder Github Actions för kontinuerlig integration.
+filen '.github/workflows/ci.yml' och den körs automatiskt vid push / pull requests
 
-vid push / pull requests 
--installeras API dependencies
--körs pytest
--byggs API Docker image
+- checkar ut koden
+- installerar API dependencies från `api/requirements.txt`
+- kör pytest
+- bygger API Docker image
+
 
 kubernetes:
 
